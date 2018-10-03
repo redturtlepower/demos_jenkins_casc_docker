@@ -1,0 +1,34 @@
+Jenkins:
+  systemMessage: "Jenkins managed by Configuration as Code"
+  numExecutors: 1
+  nodes:
+    - permanent:
+        labelString: "mac mini"
+        mode: NORMAL
+        name: "buildmachine_macos_ios"
+        numExecutors: 1
+        remoteFS: "/Users/jenkins"
+        launcher:
+          SSHLauncher:
+            host: "192.168.2.220"
+            port: 22
+            credentialsId: jenkins_slave_key
+            launchTimeoutSeconds: 20
+            maxNumRetries: 2
+            retryWaitTime: 15
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: SYSTEM
+              id: jenkins_slave_key
+              username: jenkins
+              passphrase: ""
+              description: "SSH private key file for connecting the Mac Mini build slave."
+              privateKeySource:
+                directEntry:
+                  privateKey: ${jenkins_slave_key}

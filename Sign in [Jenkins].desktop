@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Link to Sign in [Jenkins]
+Type=Link
+URL=http://127.0.0.1:8080/jenkins/login?from=%2Fjenkins%2F
+Icon=text-html

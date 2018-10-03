@@ -1,0 +1,9 @@
+# job-dsl plugin used to setup pipeline jobs (jenkinsfile read from workspace)
+pipelineJob('deploy_ps_master') {
+    definition {
+        cps {
+            script(readFileFromWorkspace('ps_master_pipeline.groovy'))
+            sandbox()
+        }
+    }
+}
