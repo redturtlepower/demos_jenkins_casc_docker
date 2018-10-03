@@ -2,4 +2,4 @@
 # Do not ignore the dummy file in the jenkins_home directory, so that git is able to save it. 
 # This is because the jenkins_home directory must exist before running docker-compose.
 */jenkins_home/*
-!*/jenkins_home/readme.md
+!*/jenkins_home/dummy
