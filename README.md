@@ -12,11 +12,16 @@ v2 + added configuration-as-code (casc) plugin with environment variable for con
 - v4
 v3 + build agent configuration via casc (Mac mini in local network)
 
-- v5 (TBD)
-v + load job/pipeline definition from config file and build a hello world app on build agent
+- v5
+v4 + create initial seed job via job-dsl from casc
+     and load job/pipeline definition from Jenkinsfile from remote repo
+     and build a hello world app on build agent mac mini
+
+- v6 (being worked on)
+v5 + add a linux build agent on the mac mini in vagrant
 
 - v (TBD)
-v + load job/pipeline definition from config file and build/test/package a hello world app on build agent
+v + add a windows build agent with wine in linux on vagrant
 
 - v (TBD)
 v + load job/pipeline definition from config file and build/test/package a complex app on build agent
