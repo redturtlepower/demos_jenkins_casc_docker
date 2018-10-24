@@ -19,6 +19,23 @@ Jenkins:
             sshHostKeyVerificationStrategy:
               manuallyTrustedKeyVerificationStrategy:
                 requireInitialManualTrust: false
+    - permanent:
+        labelString: "mac_ubuntu"
+        mode: NORMAL
+        name: "buildmachine_linux_android"
+        numExecutors: 1
+        remoteFS: "/Users/jenkins"
+        launcher:
+          SSHLauncher:
+            host: "192.168.2.221"
+            port: 2030
+            credentialsId: jenkins_slave_key
+            launchTimeoutSeconds: 20
+            maxNumRetries: 2
+            retryWaitTime: 15
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
 credentials:
   system:
     domainCredentials:
