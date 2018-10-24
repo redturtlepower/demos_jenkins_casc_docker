@@ -20,8 +20,5 @@ USER root
 RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/ref/plugins.txt)
 USER jenkins
 
-# Check env var
-RUN echo ${jenkins_slave_key}
-
 # Avoid banner prompting user to install additional plugins
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
