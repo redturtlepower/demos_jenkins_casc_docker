@@ -60,6 +60,8 @@ If yes, you'll see a name in the printed row.
 Now you can stop that container with `docker container stop v1_master_1`, where v1_master_1 is the name of the running container.
 Now you can start againg via `docker-compose up`.
 
+To force rebuild, clean the jenkins_home directory (but keep the file 'dummy' to keep the folder in git, because empty folders get deleted).
+Then call `docker-compose build --no-cache && docker-compose up`
 
 4 Control
 ==============
