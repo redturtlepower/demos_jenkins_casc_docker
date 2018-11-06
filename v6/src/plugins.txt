@@ -6,3 +6,5 @@ git:3.9.1
 github:1.29.3
 job-dsl:1.70
 workflow-aggregator:2.6
+blueocean:1.9.0
+
