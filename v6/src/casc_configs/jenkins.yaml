@@ -24,7 +24,7 @@ Jenkins:
         mode: NORMAL
         name: "buildmachine_linux_android"
         numExecutors: 1
-        remoteFS: "/Users/jenkins"
+        remoteFS: "/home/jenkins"
         launcher:
           SSHLauncher:
             host: "192.168.2.221"
