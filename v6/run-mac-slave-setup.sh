@@ -1,9 +1,8 @@
 # Be sure the mac build slave is configured to allow SSH access at this user/IP:
 # jenkins@192.168.2.220
 
-# SSH into mac build slave:
-ssh -p22 jenkins@192.168.2.220
-echo "Hello from Mac Mini!"
+# Run remote commands on build slave via SSH:
+ssh -T -p22 jenkins@192.168.2.220 << EOSSH
 
 # Mac:
 # Check dependencies on mac (Qt, XCode)
@@ -12,19 +11,20 @@ echo "Hello from Mac Mini!"
 # Download provisioning script from Github:
 cd /Users/jenkins
 git clone https://github.com/redturtlepower/winlin.git winlin
+cd winlin
 
-#Start ubuntu slave:
-cd /Users/jenkins/winlin/ubuntu
-docker-compose down
-docker-compose up -d # detached
+#Start ubuntu slave, using docker-compose from Docker-for-Mac
+cd ubuntu
+/usr/local/bin/docker-compose down
+/usr/local/bin/docker-compose up -d # detached
 
+cd ..
 #Start windows slave (wine):
-#cd /Users/jenkins/winlin/wine
+#cd wine
 #docker-compose down
 #docker-compose up -d # detached
 
 # Wait for docker to startup:
 sleep 10
 
-# End ssh session:
-exit
+EOSSH
