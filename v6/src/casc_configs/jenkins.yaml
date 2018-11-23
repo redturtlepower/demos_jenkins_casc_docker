@@ -36,6 +36,23 @@ Jenkins:
             sshHostKeyVerificationStrategy:
               manuallyTrustedKeyVerificationStrategy:
                 requireInitialManualTrust: false
+    - permanent:
+        labelString: "mac_wine"
+        mode: NORMAL
+        name: "buildmachine_windows"
+        numExecutors: 1
+        remoteFS: "/home/jenkins"
+        launcher:
+          SSHLauncher:
+            host: "192.168.2.221"
+            port: 2040
+            credentialsId: jenkins_slave_key
+            launchTimeoutSeconds: 20
+            maxNumRetries: 2
+            retryWaitTime: 15
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
 credentials:
   system:
     domainCredentials:

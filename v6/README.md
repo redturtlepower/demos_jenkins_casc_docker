@@ -63,6 +63,11 @@ Now you can start againg via `docker-compose up`.
 To force rebuild, clean the jenkins_home directory (but keep the file 'dummy' to keep the folder in git, because empty folders get deleted).
 Then call `docker-compose build --no-cache && docker-compose up`
 
+
+-- 
+Alternative to start docker compose and ensure the jenkins_home folder is correct:
+Run in a terminal: 'bash main-setup.sh'
+
 4 Control
 ==============
 Open a browser and navigate to `127.0.0.1/jenkins`
