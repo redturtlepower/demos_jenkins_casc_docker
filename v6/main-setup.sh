@@ -8,8 +8,11 @@
 # 4. Run the script 'create-and-deploy-ssh-keys-win-lin.sh' that enables ssh access to the just provisiond slaves from step 3
 # 5. Run 'docker-compose up' to start the jenkins master which will automatically connect the slaves, as defined in 'src/casc'
 
+# Clear all remote host keys
+echo "" > ~/.ssh/known_hosts
+
 bash create-and-deploy-ssh-key-mac.sh
-bash run-mac-slave-setup.sh
+# bash run-mac-slave-setup.sh
 bash create-and-deploy-ssh-keys-win-lin.sh
 
 rm -df -r ./jenkins_home
@@ -18,4 +21,5 @@ echo -n "Dummy file, needed to keep directory 'jenkins_home' in git repo." > ./j
 
 # Start jenkins master
 docker-compose down
+docker-compose build --no-cache
 docker-compose up

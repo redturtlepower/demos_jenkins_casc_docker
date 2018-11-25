@@ -43,7 +43,7 @@ if [ "$KEY_IS_NEW" == true ] || [ "$REDEPLOY_EXISTING_KEY" == true ]; then
 
     printf "Copy to Mac ----------------------------------------------------------\n"
     # Remove host from known_hosts just in case the key has changed.
-    ssh-keygen -f "~/.ssh/known_hosts" -R "[192.168.2.221]:22"
+    ssh-keygen -f "~/.ssh/known_hosts" -R "[192.168.2.220]:22"
     # Copy to mac slave
     ssh-copy-id -i ~/.ssh/jenkins_slave.pub jenkins@192.168.2.220
 fi
