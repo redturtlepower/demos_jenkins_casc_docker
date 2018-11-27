@@ -12,7 +12,7 @@
 echo "" > ~/.ssh/known_hosts
 
 bash create-and-deploy-ssh-key-mac.sh
-# bash run-mac-slave-setup.sh
+bash run-mac-slave-setup.sh
 bash create-and-deploy-ssh-keys-win-lin.sh
 
 rm -df -r ./jenkins_home

@@ -13,16 +13,16 @@ cd /Users/jenkins
 git clone https://github.com/redturtlepower/winlin.git winlin
 cd winlin
 
-#Start ubuntu slave, using docker-compose from Docker-for-Mac
+# tart ubuntu slave
 cd ubuntu
-/usr/local/bin/docker-compose down
-/usr/local/bin/docker-compose up -d # detached
+bash run-docker.sh
 
+# Go back to winlin dir
 cd ..
-#Start windows slave (wine):
-#cd wine
-#docker-compose down
-#docker-compose up -d # detached
+
+# Start windows slave (wine):
+# cd wine
+bash run-docker.sh
 
 # Wait for docker to startup:
 sleep 10
