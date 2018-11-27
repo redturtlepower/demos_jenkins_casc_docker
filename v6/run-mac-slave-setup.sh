@@ -2,29 +2,41 @@
 # jenkins@192.168.2.220
 
 # Run remote commands on build slave via SSH:
-ssh -T -p22 jenkins@192.168.2.220 << EOSSH
+ssh -p22 jenkins@192.168.2.220 '/bin/bash -s' << 'EOF'
 
+echo 'This should run on mac. Test the user: user = ' $USER
+echo 'Docker is likely installed on /usr/local/bin on the Mac. That path isn't on the PATH, is it?'
+echo 'Mac PATH: ' $PATH
+
+# -------------------------------------------------------------------
 # Mac:
-# Check dependencies on mac (Qt, XCode)
+# Check dependencies on mac (Qt, XCode) => TODO
 
+# -------------------------------------------------------------------
 # Linux/Windows containers on Mac:
 # Download provisioning script from Github:
 cd /Users/jenkins
 git clone https://github.com/redturtlepower/winlin.git winlin
 cd winlin
 
-# tart ubuntu slave
-cd ubuntu
-bash run-docker.sh
+	# ---------------------------------------------------------------
+	# Start ubuntu slave
+	cd ubuntu
+	ls -la
+	bash run-docker.sh
 
-# Go back to winlin dir
-cd ..
+	# ---------------------------------------------------------------
+	# Go back to winlin dir
+	cd ..
 
-# Start windows slave (wine):
-# cd wine
-bash run-docker.sh
+	# ---------------------------------------------------------------
+	# Start windows slave (wine):
+	cd wine
+	ls -la
+	bash run-docker.sh
 
+# -------------------------------------------------------------------
 # Wait for docker to startup:
 sleep 10
 
-EOSSH
+EOF
