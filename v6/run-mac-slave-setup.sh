@@ -5,7 +5,7 @@
 ssh -p22 jenkins@192.168.2.220 '/bin/bash -s' << 'EOF'
 
 echo 'This should run on mac. Test the user: user = ' $USER
-echo 'Docker is likely installed on /usr/local/bin on the Mac. That path isn't on the PATH, is it?'
+echo 'Docker is likely installed on /usr/local/bin on the Mac. That path isnt on the PATH, is it?'
 echo 'Mac PATH: ' $PATH
 
 # -------------------------------------------------------------------
