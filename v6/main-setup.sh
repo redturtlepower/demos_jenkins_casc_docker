@@ -13,7 +13,7 @@ echo "" > ~/.ssh/known_hosts
 
 bash create-and-deploy-ssh-key-mac.sh
 bash run-mac-slave-setup.sh
-bash create-and-deploy-ssh-keys-win-lin.sh
+bash create-and-deploy-ssh-keys-win-lin-android.sh
 # The previous script has installed the ssh keys inside the containers. Save that state!
 # bash commit-images-with-ssh-keys.sh 
 

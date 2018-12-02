@@ -27,17 +27,23 @@ echo -n "REDEPLOY_EXISTING_KEY:" $REDEPLOY_EXISTING_KEY
 printf "\n"
 
 if [ "$KEY_IS_NEW" == true ] || [ "$REDEPLOY_EXISTING_KEY" == true ]; then
-    printf "Deploying key to slaves (Ubuntu + Windows)...\n"
+    printf "Deploying key to slaves (Ubuntu + Windows + Android)...\n"
 
     printf "Copy to Ubuntu ----------------------------------------------------------\n"
     # Remove host from known_hosts just in case the key has changed.
     ssh-keygen -f "~/.ssh/known_hosts" -R "[192.168.2.220]:2030"
-    # Copy to ubuntu slave - be sure that 'vagrant up ubuntu' has been run successfully on mac!
+    # Copy to ubuntu slave - be sure that container 'ubuntu_buildenv' is running on the mac (check with 'docker ps')!
     ssh-copy-id -i ~/.ssh/jenkins_slave.pub -p 2030 jenkins@192.168.2.220
 
-    printf "Copy to Wine ----------------------------------------------------------\n"
+    printf "Copy to Wine ------------------------------------------------------------\n"
     # Remove host from known_hosts just in case the key has changed.
     ssh-keygen -f "~/.ssh/known_hosts" -R "[192.168.2.220]:2040"
-    # Copy to wine slave (windows on ubuntu) - be sure that 'vagrant up wine' has been run successfully on mac!
+    # Copy to wine slave (windows on ubuntu) - be sure that container 'wine_buildenv' is running on the mac (check with 'docker ps')!
     ssh-copy-id -i ~/.ssh/jenkins_slave.pub -p 2040 jenkins@192.168.2.220
+
+    printf "Copy to Android ---------------------------------------------------------\n"
+    # Remove host from known_hosts just in case the key has changed.
+    ssh-keygen -f "~/.ssh/known_hosts" -R "[192.168.2.220]:2050"
+    # Copy to android slave - be sure that container 'android_buildenv' is running on the mac (check with 'docker ps')!
+    ssh-copy-id -i ~/.ssh/jenkins_slave.pub -p 2050 jenkins@192.168.2.220
 fi
