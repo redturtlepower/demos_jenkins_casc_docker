@@ -53,6 +53,23 @@ Jenkins:
             sshHostKeyVerificationStrategy:
               manuallyTrustedKeyVerificationStrategy:
                 requireInitialManualTrust: false
+    - permanent:
+        labelString: "mac_android"
+        mode: NORMAL
+        name: "buildmachine_android"
+        numExecutors: 1
+        remoteFS: "/home/jenkins"
+        launcher:
+          SSHLauncher:
+            host: "192.168.2.220"
+            port: 2050
+            credentialsId: jenkins_slave_key
+            launchTimeoutSeconds: 20
+            maxNumRetries: 2
+            retryWaitTime: 15
+            sshHostKeyVerificationStrategy:
+              manuallyTrustedKeyVerificationStrategy:
+                requireInitialManualTrust: false
 credentials:
   system:
     domainCredentials:
@@ -77,7 +94,7 @@ jobs:
                               url('https://github.com/redturtlepower/demo_qmake_hello_world.git')
                           }
                           branches('master','develop')
-                          scriptPath('Jenkinsfile.v4')
+                          scriptPath('Jenkinsfile.v5')
                           extensions { }
                       }
                   }

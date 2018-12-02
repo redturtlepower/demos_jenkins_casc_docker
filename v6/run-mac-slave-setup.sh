@@ -20,6 +20,16 @@ git clone https://github.com/redturtlepower/winlin.git winlin
 cd winlin
 
 	# ---------------------------------------------------------------
+	# Build base image for all buildenvs
+	cd buildenv-base
+	ls -la
+	bash run-docker.sh
+
+	# ---------------------------------------------------------------
+	# Go back to winlin dir
+	cd ..
+
+	# ---------------------------------------------------------------
 	# Start ubuntu slave
 	cd ubuntu
 	ls -la
