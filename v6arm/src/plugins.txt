@@ -1,12 +1,11 @@
-configuration-as-code:1.1
-configuration-as-code-support:1.1
-ssh-slaves:1.28.1
-jdk-tool:1.1
-git:3.9.1
-github:1.29.3
-job-dsl:1.70
-workflow-aggregator:2.6
-blueocean:1.9.0
-ws-cleanup:0.36
+configuration-as-code:1.39
+ssh-slaves:1.31.2
+jdk-tool:1.4
+git:4.2.2
+github:2.60.3
+job-dsl:1.77
+workflow-aggregator:2.130
+blueocean:1.23.1
+ws-cleanup:0.38
 
 
