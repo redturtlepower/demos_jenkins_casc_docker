@@ -84,7 +84,7 @@ USER ${user}
 ENV JENKINS_OPTS "--prefix=/jenkins"
 ENV CASC_JENKINS_CONFIG "${JENKINS_HOME}/casc_configs/jenkins.yaml"
 
-COPY casc_configs/jenkins.yaml ${REF}/casc_configs/jenkins.yaml"
+COPY casc_configs/jenkins.yaml ${REF}/casc_configs/jenkins.yaml
 COPY plugins.txt ${REF}/plugins.txt
 RUN /usr/local/bin/install-plugins.sh $(cat ${REF}/plugins.txt)
 
