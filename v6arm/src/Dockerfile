@@ -65,8 +65,7 @@ EXPOSE ${agent_port}
 # will be used by attached slave agents:
 EXPOSE ${agent_port}
 
-# USER root
-USER ${user}
+USER root
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support \
@@ -79,6 +78,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/plugins
  && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh \
  && chmod +x /usr/local/bin/install-plugins.sh
 
+USER ${user}
 
 # Change URL for use behind a reserve proxy
 ENV JENKINS_OPTS "--prefix=/jenkins"
