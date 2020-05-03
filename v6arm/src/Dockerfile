@@ -37,10 +37,11 @@ ENV REF $REF
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
 # ensure you use the same uid
+# adduser -h Home directory; -s Login shell; -u User id; -G existing group; -D don't assign a password
 RUN mkdir -p $JENKINS_HOME \
   && chown ${uid}:${gid} $JENKINS_HOME \
-  && addgroup -g ${gid} ${group} \
-  && adduser -h "$JENKINS_HOME" -u ${uid} -G ${group} -s /bin/bash -D ${user}
+  && addgroup --gid ${gid} ${group} \
+  && adduser -h "$JENKINS_HOME" --uid ${uid} --ingroup ${group} -s /bin/bash -D ${user}
   
 # RUN mkdir -p $JENKINS_HOME
 # RUN useradd --no-create-home --shell /bin/sh jenkins 
@@ -62,7 +63,7 @@ ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-w
 
 #ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 #RUN chmod 644 /usr/local/jenkins.war
-RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
+RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
