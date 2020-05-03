@@ -70,9 +70,10 @@ USER root
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support \
  && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh > /usr/local/bin/jenkins.sh \
- && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/plugins.sh > /usr/local/bin/plugins.sh \
- && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh \ 
- && chmod +x /usr/local/bin/install-plugins.sh
+# && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/plugins.sh > /usr/local/bin/plugins.sh \
+ && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh \
+ && chmod +x /usr/local/bin/install-plugins.sh \
+ && chmod +x /usr/local/bin/jenkins-support
 
 USER ${user}
 
