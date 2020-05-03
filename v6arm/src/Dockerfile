@@ -31,22 +31,10 @@ RUN chown -R jenkins:jenkins /usr/local/jenkins/
 ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 RUN chmod 644 /usr/local/jenkins.war
 
-CMD ["/usr/bin/java", "-jar", "/usr/local/jenkins.war"]
-
-### END OF JENKINS ARM BUILD ###
-###################################################################
-
 # Change URL for use behind a reserve proxy
 ENV JENKINS_OPTS "--prefix=/jenkins"
 
 ENV CASC_JENKINS_CONFIG "/var/jenkins_home/casc_configs/jenkins.yaml"
-
-# Install init.d groovy scripts
-# Reference: https://wiki.jenkins.io/display/JENKINS/Configuring+Jenkins+upon+start+up
-# Reference: https://wiki.jenkins.io/display/JENKINS/Post-initialization+script
-# Reference: https://wiki.jenkins.io/display/JENKINS/Groovy+Hook+Script
-# COPY ./init.groovy.d/load-properties.groovy /usr/share/jenkins/ref/init.groovy.d/load-properties.groovy
-# COPY ./init.groovy.d/set-env-vars.groovy /usr/share/jenkins/ref/init.groovy.d/set-env-vars.groovy 
 
 COPY casc_configs/jenkins.yaml /usr/share/jenkins/ref/casc_configs/jenkins.yaml
 
@@ -58,3 +46,6 @@ USER jenkins
 
 # Avoid banner prompting user to install additional plugins
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
+
+CMD ["/usr/bin/java", "-jar", "/usr/local/jenkins.war"]
+
