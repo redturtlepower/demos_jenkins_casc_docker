@@ -70,7 +70,7 @@ USER root
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support \
  && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh > /usr/local/bin/jenkins.sh \
- && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/tini-shim.sh > /usr/local/bin/tini-shim.sh
+ && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/tini-shim.sh > /bin/tini
  
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
