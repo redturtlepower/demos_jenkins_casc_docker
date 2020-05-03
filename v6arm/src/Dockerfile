@@ -31,6 +31,7 @@ RUN chown -R jenkins:jenkins /usr/local/jenkins/
 ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 RUN chmod 644 /usr/local/jenkins.war
 
+RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh
 RUN chmod +x /usr/local/bin/install-plugins.sh
 #COPY install-plugins.sh /usr/local/bin/install-plugins.sh
