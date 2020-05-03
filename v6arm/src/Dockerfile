@@ -9,6 +9,7 @@ FROM arm32v7/openjdk:latest
 RUN apt-get update; apt-get --yes install \
     apt-transport-https \
     curl \
+    nano \
     git \
     ca-certificates \
     gnupg-agent \
@@ -38,18 +39,19 @@ ENV REF $REF
 # If you bind mount a volume from the host or a data container,
 # ensure you use the same uid
 # adduser -h Home directory; -s Login shell; -u User id; -G existing group; -D don't assign a password
-RUN mkdir -p $JENKINS_HOME \
-  && chown ${uid}:${gid} $JENKINS_HOME \
-  && addgroup --gid ${gid} ${group} \
-  && adduser -h "$JENKINS_HOME" --uid ${uid} --ingroup ${group} -s /bin/bash -D ${user}
+#RUN mkdir -p $JENKINS_HOME \
+#  && chown ${uid}:${gid} $JENKINS_HOME \
+#  && addgroup --gid ${gid} ${group} \
+#  && adduser -h "$JENKINS_HOME" --uid ${uid} --ingroup ${group} -s /bin/bash -D ${user}
   
-# RUN mkdir -p $JENKINS_HOME
-# RUN useradd --no-create-home --shell /bin/sh jenkins 
-# RUN chown -R jenkins:jenkins $JENKINS_HOME
+RUN mkdir -p $JENKINS_HOME
+RUN useradd --no-create-home --shell /bin/sh jenkins 
+RUN chown -R jenkins:jenkins $JENKINS_HOME
+
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
-VOLUME $JENKINS_HOME
+#VOLUME $JENKINS_HOME
 
 # $REF (defaults to `/usr/share/jenkins/ref/`) contains all reference configuration we want
 # to set on a fresh new installation. Use it to bundle additional plugins
@@ -63,12 +65,12 @@ ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-w
 
 #ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 #RUN chmod 644 /usr/local/jenkins.war
-RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war
+RUN curl -fsSL ${JENKINS_URL} -o /usr/local/jenkins.war
 
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-RUN chown -R ${user} "$JENKINS_HOME" "$REF"
+#RUN chown -R ${user} "$JENKINS_HOME" "$REF"
 
 # for main web interface:
 EXPOSE ${agent_port}
@@ -76,10 +78,9 @@ EXPOSE ${agent_port}
 # will be used by attached slave agents:
 EXPOSE ${agent_port}
 
+USER root
+
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
-
-USER ${user}
-
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh > /usr/local/bin/jenkins.sh
 
@@ -97,7 +98,6 @@ COPY casc_configs/jenkins.yaml ${REF}/casc_configs/jenkins.yaml
 
 # Install initially required plugins from plugins.txt via the script install-plugins.sh
 COPY plugins.txt ${REF}/plugins.txt
-USER root
 RUN /usr/local/bin/install-plugins.sh $(cat ${REF}/plugins.txt)
 
 # Avoid banner prompting user to install additional plugins
