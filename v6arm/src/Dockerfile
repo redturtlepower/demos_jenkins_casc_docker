@@ -58,10 +58,11 @@ RUN chown -R jenkins:jenkins $JENKINS_HOME
 # or config file with your custom jenkins Docker image.
 # RUN mkdir -p ${REF}/init.groovy.d
 
-ENV JENKINS_VERSION 2.99
+ENV JENKINS_VERSION 2.222.3
 
 # Can be used to customize where jenkins.war get downloaded from
-ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
+# ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.
+ARG JENKINS_URL=http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war
 
 #ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 #RUN chmod 644 /usr/local/jenkins.war
