@@ -32,6 +32,8 @@ ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenki
 RUN chmod 644 /usr/local/jenkins.war
 
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support
+RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh > /usr/local/bin/jenkins.sh
+RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/plugins.sh > /usr/local/bin/plugins.sh
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh
 RUN chmod +x /usr/local/bin/install-plugins.sh
 #COPY install-plugins.sh /usr/local/bin/install-plugins.sh
