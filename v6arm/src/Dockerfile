@@ -45,13 +45,13 @@ ENV REF $REF
 #  && adduser -h "$JENKINS_HOME" --uid ${uid} --ingroup ${group} -s /bin/bash -D ${user}
   
 RUN mkdir -p $JENKINS_HOME
-RUN useradd --no-create-home --shell /bin/sh jenkins 
-RUN chown -R jenkins:jenkins $JENKINS_HOME
+RUN useradd --no-create-home --shell /bin/sh ${user} 
+RUN chown -R ${user}:${group} $JENKINS_HOME
 
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades
-#VOLUME $JENKINS_HOME
+VOLUME $JENKINS_HOME
 
 # $REF (defaults to `/usr/share/jenkins/ref/`) contains all reference configuration we want
 # to set on a fresh new installation. Use it to bundle additional plugins
@@ -61,7 +61,6 @@ RUN chown -R jenkins:jenkins $JENKINS_HOME
 ENV JENKINS_VERSION 2.222.3
 
 # Can be used to customize where jenkins.war get downloaded from
-# ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.
 ARG JENKINS_URL=http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war
 
 #ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
