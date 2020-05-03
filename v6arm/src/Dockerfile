@@ -73,7 +73,8 @@ RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins
 # && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/plugins.sh > /usr/local/bin/plugins.sh \
  && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/install-plugins.sh > /usr/local/bin/install-plugins.sh \
  && chmod +x /usr/local/bin/install-plugins.sh \
- && chmod +x /usr/local/bin/jenkins-support
+ && chmod +x /usr/local/bin/jenkins-support \
+ && chmod +x /usr/local/bin/jenkins.sh
 
 USER ${user}
 
