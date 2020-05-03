@@ -6,7 +6,15 @@
 
 FROM arm32v7/openjdk:latest
 
-EXPOSE 8080
+ARG http_port=8080
+ARG agent_port=50000
+ARG JENKINS_HOME=/var/jenkins_home
+
+# for main web interface:
+EXPOSE ${agent_port}
+
+# will be used by attached slave agents:
+EXPOSE ${agent_port}
 
 RUN apt-get update; apt-get --yes install \
     apt-transport-https \
@@ -23,13 +31,22 @@ RUN apt-get update; apt-get --yes install \
     apt-get clean && apt-get autoremove -q && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/*
 
-ENV JENKINS_HOME /usr/local/jenkins
+ENV JENKINS_HOME $JENKINS_HOME
+ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 
-RUN mkdir -p /usr/local/jenkins
+RUN mkdir -p $JENKINS_HOME
 RUN useradd --no-create-home --shell /bin/sh jenkins 
-RUN chown -R jenkins:jenkins /usr/local/jenkins/
+RUN chown -R jenkins:jenkins $JENKINS_HOME
 ADD http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war /usr/local/jenkins.war
 RUN chmod 644 /usr/local/jenkins.war
+
+# Jenkins home directory is a volume, so configuration and build history
+# can be persisted and survive image upgrades
+VOLUME $JENKINS_HOME
+
+ENV JENKINS_UC https://updates.jenkins.io
+ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
+ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins-support > /usr/local/bin/jenkins-support
 RUN curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh > /usr/local/bin/jenkins.sh
@@ -41,7 +58,7 @@ RUN chmod +x /usr/local/bin/install-plugins.sh
 # Change URL for use behind a reserve proxy
 ENV JENKINS_OPTS "--prefix=/jenkins"
 
-ENV CASC_JENKINS_CONFIG "/var/jenkins_home/casc_configs/jenkins.yaml"
+ENV CASC_JENKINS_CONFIG "${JENKINS_HOME}/casc_configs/jenkins.yaml"
 
 COPY casc_configs/jenkins.yaml /usr/share/jenkins/ref/casc_configs/jenkins.yaml
 
