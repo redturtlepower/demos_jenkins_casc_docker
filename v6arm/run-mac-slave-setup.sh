@@ -18,6 +18,8 @@ echo 'Mac PATH: ' $PATH
 cd /Users/jenkins
 git clone https://github.com/redturtlepower/winlin.git winlin
 cd winlin
+    # start docker daemon 
+    eval "$(docker-machine env default)"
 
 	# ---------------------------------------------------------------
 	# Build base image for all buildenvs
