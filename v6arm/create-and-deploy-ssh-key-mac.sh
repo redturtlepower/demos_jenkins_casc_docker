@@ -14,6 +14,9 @@ else
     if [ "$recreate_decision" == "y" ]; then
         echo "" > ~/.ssh/known_hosts # Remove all keys from all known hosts
         ssh-keygen -t rsa -f ~/.ssh/jenkins_slave # Generate a new ssh key pair
+        # Create identity due to non-standard name
+        ssh-agent bash
+        ssh-add ~/.ssh/jenkins_slave
         KEY_IS_NEW=true
     elif [ "$recreate_decision" == "n" ]; then
         printf "The existing key has not been touched.\n"

@@ -7,6 +7,9 @@ KEY_IS_NEW=false
 if [ ! -f ~/.ssh/jenkins_slave.pub ]; then
     echo -n "SSH key 'jenkins_slave' has not been found in ~/.ssh/! Creating new key pair and deploying to slaves..."
     ssh-keygen -t rsa -C "jenkins build slave key" -f ~/.ssh/jenkins_slave
+    # Create identity due to non-standard name
+    ssh-agent bash
+    ssh-add ~/.ssh/jenkins_slave
     KEY_IS_NEW=true
 else
     echo -n "The key 'jenkins_slave' already exists. Do you still want to (re-)deploy it to the hosts? Enter (y) or (n) and press [ENTER]: "
